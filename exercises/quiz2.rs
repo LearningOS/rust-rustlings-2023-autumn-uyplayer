@@ -32,24 +32,19 @@ pub enum Command {
 
 
 mod my_module {
-    use std::simd::usizex1;
     use super::Command;
 
-    // TODO: Complete the function signature!
-    pub fn transformer(input:Vec<(&str,Command)>) -> Vec<&str> {
-        
-        let mut output: Vec<_> = vec![];
+    pub fn transformer(input: Vec<(&str, Command)>) -> Vec<String> {
+        let mut output: Vec<String> = vec![];
         for (string, command) in input.iter() {
             match command {
-                Command::Uppercase =>{
-                    output.push(*string.to_uppercase())
-                },
-                Command::Trim=>{
-                    output.push(*string.trim())
-                },
+                Command::Uppercase => output.push(string.to_uppercase()),
+                Command::Trim => output.push(string.trim().into()),
                 Command::Append(size) => {
-                    output.push(*string.repeat(size))
-                }
+                    let append = "bar".repeat(size.to_owned());
+                    let out = string.trim().to_string() + &append;
+                    output.push(out);
+                },
             }
         }
         output
@@ -76,3 +71,6 @@ mod tests {
         assert_eq!(output[3], "barbarbarbarbarbar");
     }
 }
+
+
+
