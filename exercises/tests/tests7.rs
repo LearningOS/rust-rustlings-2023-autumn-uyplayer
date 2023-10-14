@@ -35,20 +35,9 @@
 // hint.
 
 
+use std::env;
 
-fn main() {
-    if let Ok(s) = std::env::var("TEST_FOO") {
-        if let Ok(e) = s.parse::<u64>() {
-            let timestamp = std::time::SystemTime::now()
-                .duration_since(std::time::UNIX_EPOCH)
-                .unwrap()
-                .as_secs();
-            if timestamp >= e && timestamp < e + 10 {
-                println!("cargo:rustc-cfg=feature=\"timestamp_within_range\"");
-            }
-        }
-    }
-}
+fn main() {}
 
 #[cfg(test)]
 mod tests {
